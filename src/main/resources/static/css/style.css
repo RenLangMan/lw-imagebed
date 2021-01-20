@@ -1,0 +1,96 @@
+.lw-image-show img {
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    width: 100%;
+    max-height: 500px;
+    padding: 5px;
+}
+
+.lw-file-content {
+    cursor: pointer;
+}
+
+.lw-rm-file {
+    color: #FF5722 !important;
+}
+
+.lw-file-content:hover {
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, .2);
+}
+
+.lw-copy {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    font-size: 18px;
+}
+
+.lw-file {
+    height: 400px;
+    border: 1px solid #c2c2c2;
+    overflow: scroll;
+    /*position: relative;*/
+}
+
+.lw-menus {
+    cursor: pointer;
+}
+
+
+.lw-menu-list {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 32px;
+    font-size: 16px;
+    font-weight: 100;
+    text-align: center;
+    line-height: 32px;
+    border-top: 2px solid rgba(0, 0, 0, .1);
+    color: #5e5e5e;
+    display: none;
+}
+
+.lw-menu-list div {
+    border-left: 1px solid rgba(0, 0, 0, .1);
+    cursor: pointer;
+}
+
+
+.lw-file .lw-dir {
+    background: url("/static/image/dir.png") no-repeat top center;
+}
+
+.lw-file .lw-files {
+    background: url("/static/image/file.png") no-repeat top center;
+}
+
+.lw-file .lw-image {
+    background: url("/static/image/img.png") no-repeat top center;
+}
+
+.lw-file .lw-file-list {
+
+    height: 72px;
+    vertical-align: middle;
+}
+
+#lw-path a {
+    cursor: pointer;
+}
+
+.lw-file-name {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 768px) {
+    .lw-file-name {
+        height: 72px;
+        line-height: 72px;
+        font-size: 18px;
+    }
+}

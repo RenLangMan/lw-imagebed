@@ -1,0 +1,19 @@
+logging:
+  file:
+    path: /www/wwwlogs/imagebed
+  level:
+    root: info
+swagger:
+  enable: false
+user:
+  username: 用户名
+  password: 密码
+tencent:
+  cos:
+    bucketName: COS桶名称
+    region: COS地域
+    urlPrefix: 图片外链前缀，可从腾讯云查看
+    secretId: 你自己的腾讯密钥ID
+    secretKey: 你自己的腾讯密钥Key
+website:
+  title: 站点标题

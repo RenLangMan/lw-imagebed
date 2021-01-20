@@ -1,0 +1,23 @@
+spring:
+  profiles:
+    active: '@profile.active@'
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  thymeleaf:
+    prefix: classpath:/templates/
+    check-template-location: true
+    suffix: .html
+    encoding: utf-8
+    servlet:
+      content-type: text/html
+    mode: HTML5
+    cache: false
+  servlet:
+    multipart:
+      max-file-size: 20MB # 最大上传文件大小
+      max-request-size: 30MB # http请求头最大大小
+logging:
+  config: classpath:logback-spring.xml
+swagger:
+  enable: false
