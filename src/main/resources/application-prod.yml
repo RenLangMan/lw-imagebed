@@ -17,3 +17,6 @@ tencent:
     secretKey: 你自己的腾讯密钥Key
 website:
   title: 站点标题
+server:
+  tomcat:
+    basedir: './tmp'
