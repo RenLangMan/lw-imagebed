@@ -148,7 +148,7 @@ layui.use(['upload', 'jquery', 'element', 'layer'], function () {
                 $('#img-url').val(url);
                 $('#img-img').val(`<img src="${url}" alt="">`);
                 $('#img-bbs').val(`[url=${url}][img]${url}[/img][/url]`);
-                $('#img-mark').val(`[![${url}](${url})](${url})`);
+                $('#img-mark').val(`![${url}](${url})`);
                 $(".lw-image-show").html(`<img src="${url}" alt="">`);
                 break;
             default:
