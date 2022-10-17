@@ -62,7 +62,7 @@ layui.use(['upload', 'jquery', 'element', 'layer'], function () {
         $('#img-url').val(imgsrc);
         $('#img-img').val(`<img src="${imgsrc}" alt="">`);
         $('#img-bbs').val(`[url=${imgsrc}][img]${imgsrc}[/img][/url]`);
-        $('#img-mark').val(`[![${imgsrc}](${imgsrc})](${imgsrc})`);
+        $('#img-mark').val(`![${imgsrc}](${imgsrc})`);
         $(".lw-image-show").html(`<img src="${imgsrc}" alt="">`);
     }
 
