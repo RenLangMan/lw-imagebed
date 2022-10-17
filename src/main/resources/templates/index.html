@@ -42,9 +42,9 @@
         <div class="layui-carousel imgbox" id="test1">
             <div carousel-item class="imgH">
                 <div><img style="width: 100%"
-                          src="https://gitee.com/kevinlu98/imgbed/raw/master/20210120/HQPRiZqBY1Wx.png" alt=""></div>
+                          src="/static/image/HQPRiZqBY1Wx.png" alt=""></div>
                 <div><img style="width: 100%"
-                          src="https://gitee.com/kevinlu98/imgbed/raw/master/图床素材/kCma2!Mqj4Xw.png" alt=""></div>
+                          src="/static/image/kCma2!Mqj4Xw.png" alt=""></div>
             </div>
         </div>
     </div>
@@ -193,9 +193,9 @@
         $('.app-header-menuicon').on('click', function () {
             $('.header-down-nav').toggleClass('down-nav')
         })
-        var imgH = $('.imgH img').css('width');
+        let imgH = $('.imgH img').css('width');
         console.log(720 / 1920);
-        var imgH = parseInt(imgH) * 0.375;
+        imgH = parseInt(imgH) * 0.375;
         $('.imgH').css('height', imgH + 'px')
         window.onresize = function () {
             var imgH = $('.imgbox div.layui-this').outerHeight();
