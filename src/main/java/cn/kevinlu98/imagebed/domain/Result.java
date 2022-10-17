@@ -1,8 +1,6 @@
 package cn.kevinlu98.imagebed.domain;
 
 import cn.kevinlu98.imagebed.domain.enums.ResponseCode;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,13 +16,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel(description = "返回响应数据")
 public class Result<T> {
-    @ApiModelProperty(value = "返回错误码", dataType = "int", position = 1)
     private int code;
-    @ApiModelProperty(value = "错误消息", dataType = "String", position = 2)
     private String msg;
-    @ApiModelProperty(value = "返回结果，类型根据不同的接口而定", position = 3)
     private T data;
 
     public static <T> Result<T> success() {

@@ -1,6 +1,4 @@
 spring:
-  profiles:
-    active: '@profile.active@'
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
@@ -19,5 +17,19 @@ spring:
       max-request-size: 30MB # http请求头最大大小
 logging:
   config: classpath:logback-spring.xml
-swagger:
-  enable: false
+  file:
+    path: ./logs
+  level:
+    root: info
+user:
+  username: 用户名
+  password: 密码
+tencent:
+  cos:
+    bucketName: COS桶名称
+    region: COS地域
+    urlPrefix: 图片外链前缀，可从腾讯云查看
+    secretId: 你自己的腾讯密钥ID
+    secretKey: 你自己的腾讯密钥Key
+website:
+  title: 站点标题

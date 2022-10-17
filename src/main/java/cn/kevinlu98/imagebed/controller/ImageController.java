@@ -8,7 +8,6 @@ import cn.kevinlu98.imagebed.domain.enums.ResponseCode;
 import cn.kevinlu98.imagebed.interceptor.LoginInterceptor;
 import cn.kevinlu98.imagebed.serice.ImageService;
 
-import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -30,7 +28,6 @@ import java.util.List;
 @SwaggerShow
 @RestController
 @RequestMapping("/image")
-@Api(tags = "冷文图床测试")
 public class ImageController {
 
     @Value("${user.username}")
@@ -46,13 +43,8 @@ public class ImageController {
     }
 
     @SwaggerMethodShow
-    @ApiOperation(value = "上传文件")
-    @ApiOperationSupport(order = 1)
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "prefix", value = "父级路径", paramType = "query", defaultValue = ""),
-    })
     @PostMapping("/upload")
-    public Result<String> upload(String prefix, @ApiParam(value = "文件", required = true) @RequestParam("file") MultipartFile file) {
+    public Result<String> upload(String prefix, @RequestParam("file") MultipartFile file) {
         try {
             if (prefix.length() > 0 && !prefix.endsWith("/")) {
                 prefix += "/";
@@ -68,12 +60,6 @@ public class ImageController {
     }
 
     @SwaggerMethodShow
-    @ApiOperation(value = "创建文件夹")
-    @ApiOperationSupport(order = 2)
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "prefix", value = "父级路径", paramType = "query", defaultValue = ""),
-            @ApiImplicitParam(name = "dirName", value = "目录名称", paramType = "query", defaultValue = ""),
-    })
     @PostMapping("/mkdir")
     public Result<String> mkdir(String prefix, String dirName) {
         try {
@@ -93,11 +79,6 @@ public class ImageController {
 
 
     @SwaggerMethodShow
-    @ApiOperation(value = "文件列表")
-    @ApiOperationSupport(order = 3)
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "prefix", value = "父级路径", paramType = "query", defaultValue = "/"),
-    })
     @GetMapping("/list")
     public Result<List<CosFile>> list(String prefix) {
         if (StringUtils.isEmpty(prefix))
@@ -109,11 +90,6 @@ public class ImageController {
     }
 
     @SwaggerMethodShow
-    @ApiOperation(value = "删除文件")
-    @ApiOperationSupport(order = 2)
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "path", value = "路径", defaultValue = ""),
-    })
     @PostMapping("/delete")
     public Result<String> delete(String path) {
         try {
