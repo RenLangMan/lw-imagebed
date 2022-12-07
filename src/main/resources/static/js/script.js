@@ -16,7 +16,7 @@ layui.use(['upload', 'jquery', 'element', 'layer'], function () {
                     'path': path,
                 },
                 success: res => {
-                    layer.msg(res.msg, {icon: res.code === 2000 ? 6 : 5, time: 2000})
+                    layer.msg(res.msg, { icon: res.code === 2000 ? 6 : 5, time: 2000 })
                     if (res.code === 2000) {
                         $('#lw-files-list').load(`/list?prefix=${getLastPath()}`)
                         $('#lw-path').load(`/path?prefix=${getLastPath()}`)
@@ -29,7 +29,7 @@ layui.use(['upload', 'jquery', 'element', 'layer'], function () {
     })
 
     $("#lw-mkdir").on('click', function () {
-        layer.prompt({title: '请输入文件夹名称'}, function (text, index) {
+        layer.prompt({ title: '请输入文件夹名称' }, function (text, index) {
             $.ajax({
                 url: '/image/mkdir',
                 type: 'post',
@@ -39,7 +39,7 @@ layui.use(['upload', 'jquery', 'element', 'layer'], function () {
                 },
                 success: res => {
                     layer.close(index)
-                    layer.msg(res.msg, {icon: res.code === 2000 ? 6 : 5, time: 2000})
+                    layer.msg(res.msg, { icon: res.code === 2000 ? 6 : 5, time: 2000 })
                     if (res.code === 2000) {
                         $('#lw-files-list').load(`/list?prefix=${getLastPath()}`)
                         $('#lw-path').load(`/path?prefix=${getLastPath()}`)
@@ -49,7 +49,7 @@ layui.use(['upload', 'jquery', 'element', 'layer'], function () {
         });
     })
 
-    function getdate() {
+    function getdate () {
         let nowDate = new Date();
         let year = nowDate.getFullYear();
         let month = nowDate.getMonth() + 1 < 10 ? "0" + (nowDate.getMonth() + 1) : nowDate.getMonth() + 1;
@@ -57,7 +57,7 @@ layui.use(['upload', 'jquery', 'element', 'layer'], function () {
         return year + month + day;
     }
 
-    function uploadSuccess(res) {
+    function uploadSuccess (res) {
         let imgsrc = res.msg;
         $('#img-url').val(imgsrc);
         $('#img-img').val(`<img src="${imgsrc}" alt="">`);
@@ -71,7 +71,7 @@ layui.use(['upload', 'jquery', 'element', 'layer'], function () {
         elem: '#lw-upload',
         url: `/image/upload?prefix=${getdate()}`,
         before: function () {
-            indexUpload = layer.load(0, {shade: false});
+            indexUpload = layer.load(0, { shade: false });
         },
         done: function (res) {
             layer.close(indexUpload)
@@ -88,7 +88,7 @@ layui.use(['upload', 'jquery', 'element', 'layer'], function () {
         before: function () {
             let prefix = getLastPath()
             console.log("before::" + prefix);
-            indexUpload = layer.load(0, {shade: false});
+            indexUpload = layer.load(0, { shade: false });
         },
         data: {
             prefix: function () {
@@ -117,16 +117,16 @@ layui.use(['upload', 'jquery', 'element', 'layer'], function () {
 
     getLastPath()
 
-    function getLastPath() {
+    function getLastPath () {
         return $("#lw-path a:last-child").data("path")
     }
 
     clipboard.on('success', function (e) {
-        layer.msg('复制成功', {icon: 6})
+        layer.msg('复制成功', { icon: 6 })
     });
 
     clipboard.on('error', function (e) {
-        layer.msg('复制失败', {icon: 5})
+        layer.msg('复制失败', { icon: 5 })
     })
 
     $(document).on('click', '#lw-path a', function () {
@@ -151,9 +151,23 @@ layui.use(['upload', 'jquery', 'element', 'layer'], function () {
                 $('#img-mark').val(`![${url}](${url})`);
                 $(".lw-image-show").html(`<img src="${url}" alt="">`);
                 break;
-            default:
-                window.open(url)
-                break;
+            case 'files':
+                var filevalue = path;
+                var index = path.lastIndexOf('.');
+                fileExp = path.substring(index)
+                switch (fileExp) {
+                    case '.webp':
+                        $('#img-url').val(url);
+                        $('#img-img').val(`<img src="${url}" alt="">`);
+                        $('#img-bbs').val(`[url=${url}][img]${url}[/img][/url]`);
+                        $('#img-mark').val(`![${url}](${url})`);
+                        $(".lw-image-show").html(`<img src="${url}" alt="">`);
+                        break;
+                    default:
+                        window.open(url)
+                        break;
+                }
+                break
         }
     })
 })
