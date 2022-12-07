@@ -2,6 +2,40 @@ layui.use(['upload', 'jquery', 'element', 'layer'], function () {
     const upload = layui.upload;
     const layer = layui.layer;
 
+    const getWebpFileByImageFile = imageFile => {
+        const base64ToFile = (base64, fileName) => {
+            let arr = base64.split(','),
+                type = arr[0].match(/:(.*?);/)[1],
+                bstr = atob(arr[1]),
+                n = bstr.length,
+                u8arr = new Uint8Array(n);
+            while (n--) {
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            return new File([u8arr], fileName, {
+                type
+            });
+        };
+        return new Promise((resolve, reject) => {
+            const imageFileReader = new FileReader();
+            imageFileReader.onload = function (e) {
+                const image = new Image();
+                image.src = e.target.result;
+                image.onload = function () {
+                    const canvas = document.createElement("canvas");
+                    canvas.width = image.width;
+                    canvas.height = image.height;
+                    canvas.getContext("2d").drawImage(image, 0, 0);
+
+                    resolve(base64ToFile(canvas.toDataURL("image/webp"), imageFile.name))
+                }
+            }
+            imageFileReader.readAsDataURL(imageFile)
+        });
+    }
+
+
+    // 删除文件按钮单击事件
     $(document).on('click', '.lw-rm-file', function () {
         let that = this;
         layer.confirm('确定要删除该文件或文件夹及其下面的文件？', {
@@ -28,6 +62,7 @@ layui.use(['upload', 'jquery', 'element', 'layer'], function () {
         return false;
     })
 
+    //创建文件夹按钮单击事件
     $("#lw-mkdir").on('click', function () {
         layer.prompt({ title: '请输入文件夹名称' }, function (text, index) {
             $.ajax({
@@ -49,6 +84,7 @@ layui.use(['upload', 'jquery', 'element', 'layer'], function () {
         });
     })
 
+    // 回调函数 获取新建的文件夹默认名称
     function getdate () {
         let nowDate = new Date();
         let year = nowDate.getFullYear();
@@ -57,6 +93,7 @@ layui.use(['upload', 'jquery', 'element', 'layer'], function () {
         return year.toString() + month.toString() + day.toString();
     }
 
+    // 回调函数 上传图片成功后填入链接到文本框
     function uploadSuccess (res) {
         let imgsrc = res.msg;
         $('#img-url').val(imgsrc);
@@ -66,18 +103,28 @@ layui.use(['upload', 'jquery', 'element', 'layer'], function () {
         $(".lw-image-show").html(`<img src="${imgsrc}" alt="">`);
     }
 
+    // 设置一个变量(弹窗层)
     let indexUpload;
     upload.render({
         elem: '#lw-upload',
         url: `/image/upload?prefix=${getdate()}`,
-        before: function () {
+        //上传前的回调
+        before: function (res) {
+            // 加载层 样式0 //shade: false不显示遮罩
             indexUpload = layer.load(0, { shade: false });
+            getWebpFileByImageFile(res.data.src)
+
         },
+        //上传后的回调
         done: function (res) {
+            // 上传完成后关闭弹窗层
             layer.close(indexUpload)
+            // 刷新链接地址框
             uploadSuccess(res)
         },
+        //上传出错的回调
         error: function (res) {
+            // 上传错误 只是关闭弹窗层，不刷新链接地址
             layer.close(indexUpload)
         }
     })
