@@ -23,9 +23,16 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <jackson.version>2.11.0</jackson.version>  <!--添加-->
     </properties>
 
     <dependencies>
+        <!-- 我增加的一条 可以不用 -->
+        <!--dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency-->
+
         <!-- 上边引入 parent，因此 下边无需指定版本 -->
         <!-- 包含 mvc,aop 等jar资源 -->
         <dependency>
@@ -76,6 +83,7 @@
             <artifactId>cos_api</artifactId>
             <version>${cos_api.version}</version>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -91,7 +99,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>3.1.0</version>
                 <executions>
                     <execution>
                         <id>copy-resources</id>
