@@ -54,7 +54,7 @@ layui.use(['upload', 'jquery', 'element', 'layer'], function () {
         let year = nowDate.getFullYear();
         let month = nowDate.getMonth() + 1 < 10 ? "0" + (nowDate.getMonth() + 1) : nowDate.getMonth() + 1;
         let day = nowDate.getDate() < 10 ? "0" + nowDate.getDate() : nowDate.getDate();
-        return year + month + day;
+        return year.toString() + month.toString() + day.toString();
     }
 
     function uploadSuccess (res) {
